@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> searchStudentList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return studentMapper.selectStudentList(map);
+		return studentMapper.selectStudentList();
 	}
 
 	@Override
@@ -51,6 +51,19 @@ public class StudentServiceImpl implements StudentService {
 	public List<EmpList> selectEmpList() {
 		List<EmpList> emp = studentMapper.selectEmpList();
 		return emp;
+	}
+	
+	@Override
+	public HashMap<String, Object> selectSubjectList() {
+		HashMap<String, Object> resultMap
+			= new HashMap<String, Object>();
+		List<Student> subject = studentMapper.selectSubjectList();
+		List<Student> student = studentMapper.selectStudentList();
+		
+		resultMap.put("subList", subject);
+		resultMap.put("stuList", student);
+		
+		return resultMap;	// 리턴 타입이 'HashMap<String, Object>'
 	}
 
 }

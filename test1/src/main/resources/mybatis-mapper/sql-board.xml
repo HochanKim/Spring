@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.BoardMapper">
+	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT boardno, title, userid, hit, cdatetime 
+		FROM TBL_BOARD
+		WHERE title LIKE '%' || #{search} || '%'	<!-- 문자 이어붙이기 (오라클 DB) -->
+	</select>
+	
+	<delete id="delBoard" parameterType="hashmap">	
+		DELETE FROM TBL_BOARD
+		WHERE boardno = #{boardNo}
+	</delete>
+	
+	<insert id="insertBoard" parameterType="hashmap">
+		INSERT INTO TBL_BOARD (boardNo, title, contents, userid, hit, cdatetime, udatetime)
+		VALUES (board_seq.nextval, #{title}, #{contents}, 'user1', 0, SYSDATE, SYSDATE)
+	</insert>
+</mapper>

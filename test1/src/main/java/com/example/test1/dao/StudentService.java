@@ -15,4 +15,6 @@ public interface StudentService {
 	HashMap<String, Object> geomsaek(HashMap<String, Object> map);
 	
 	List<EmpList> selectEmpList();
+	
+	HashMap<String, Object> selectSubjectList();
 }

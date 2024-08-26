@@ -32,4 +32,9 @@
 		SELECT * 
 		FROM EMP
 	</select>
+	
+	<select id="selectSubjectList" parameterType="hashmap" resultType="com.example.test1.model.Student">
+		SELECT *
+		FROM SUBJECT
+	</select>
 </mapper>

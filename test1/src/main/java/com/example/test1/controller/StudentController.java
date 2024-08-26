@@ -23,7 +23,7 @@ public class StudentController {
 	StudentService studentService;
 	
 	@RequestMapping("/student.do") 
-    public String main(Model model) throws Exception{
+    public String main1(Model model) throws Exception{
         return "/student-list";
     }
 	
@@ -37,6 +37,12 @@ public class StudentController {
 	public String main3(Model model) throws Exception{
 		// 'emp-list.jsp' 파일과 연결
 		return "/emp-list";
+	}
+	
+	@RequestMapping("/subject.do") // emp.do 주소 생성
+	public String main4(Model model) throws Exception{
+		// 'emp-list.jsp' 파일과 연결
+		return "/subject-list";
 	}
 	
 	@RequestMapping(value = "/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -71,7 +77,7 @@ public class StudentController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	@RequestMapping(value = "/empList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /search.dox
+	@RequestMapping(value = "/empList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /empList.dox
 	@ResponseBody
 	public String emp(Model model, @RequestParam HashMap<String, Object> empMap) throws Exception {		// 메소드명 'emp'
 		HashMap<String, Object> resultMap 
@@ -79,6 +85,16 @@ public class StudentController {
 		List<EmpList> emp = studentService.selectEmpList();
 		resultMap.put("emp", emp);
 		resultMap.put("result", "success");
+		return new Gson().toJson(resultMap);
+	}
+	
+	@RequestMapping(value = "/sub-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /subject.dox
+	@ResponseBody
+	public String subject(Model model, @RequestParam HashMap<String, Object> subjMap) throws Exception {		// 메소드명 'subject'
+		HashMap<String, Object> resultMap 
+		= new HashMap<String, Object>();
+		resultMap = studentService.selectSubjectList();
+		
 		return new Gson().toJson(resultMap);
 	}
 }
