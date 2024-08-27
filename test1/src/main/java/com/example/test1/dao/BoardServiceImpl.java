@@ -62,5 +62,24 @@ public class BoardServiceImpl implements BoardService {
 		return resultMap;
 	}
 
+	// 게시글 상세보기
+	@Override
+	public HashMap<String, Object> getBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap
+		= new HashMap<String, Object>();
+		try {
+			BoardList list = boardMapper.getBoard(map);		
+			// 복사하는 과정에서 메소드를 수정하지 않아 불러오지 못함
+			resultMap.put("info", list);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("message", "예기치 못한 문제발생.");
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+
+
 
 }

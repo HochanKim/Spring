@@ -14,5 +14,9 @@ public interface BoardMapper {
 	void delBoard(HashMap<String, Object> map); // 게시글 삭제
 	
 	void insertBoard(HashMap<String, Object> map); // 게시글 업로드
+
+	BoardList getBoard(HashMap<String, Object> map); // 1개('pk값'을 받기 때문에), 게시글 상세보기
+	
+	BoardList getUserInfo(HashMap<String, Object> map); // 1개, 사용자정보
 	
 }

@@ -16,4 +16,7 @@ public class BoardList {
 	private String noticeYN;
 	private String cdatetime;
 	private String udatetime;
+	
+	// 조인
+	private String username;
 }

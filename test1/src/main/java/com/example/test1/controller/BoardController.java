@@ -3,6 +3,8 @@ package com.example.test1.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,16 +28,27 @@ public class BoardController {
 
 	// 게시글 목록 페이지
 	@RequestMapping("/board-list.do") 
-    public String boardList(Model model) throws Exception{
+    public String boardList(Model model) throws Exception {
         return "/board_list";
     }
 	
 	// 게시글 작성
 	@RequestMapping("/board-insert.do") 
-	public String boardInsert(Model model) throws Exception{
+	public String boardInsert(Model model) throws Exception {
 		return "/board_insert";
 	}
+	
+	// 게시글 상세보기
+	@RequestMapping("/board-view.do") 
+	public String boardView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		request.setAttribute("boardNo", map.get("boardNo"));
+		return "/board_view";
+	}
+	
 
+	
+	// ResponseBody
+	// 게시글 목록 페이지
 	@RequestMapping(value = "/board-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardList(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'boardList'
@@ -44,7 +57,7 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	//게시글 삭제
+	// 게시글 삭제
 	@RequestMapping(value = "/board-remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardRemove(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'boardRemove'
@@ -53,7 +66,7 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 	
-	//게시글 작성
+	// 게시글 작성
 	@RequestMapping(value = "/board-add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardInsert(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'boardInsert'
@@ -61,6 +74,18 @@ public class BoardController {
 		resultMap = boardService.insertBoard(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 게시글 상세보기
+	@RequestMapping(value = "/board-view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String getBoard(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'getBoard'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.getBoard(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+
+
 	
 
 }

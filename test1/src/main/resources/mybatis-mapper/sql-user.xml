@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.UserMapper">
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="hashmap">
+		INSERT INTO TBL_COMMENT (USERID, PWD, USERNAME, EMALE, PHONE, GENDER, CDATETIME)
+		VALUES (#{userId}, #{pwd}, #{name}, #{email}, #{phone}, #{gender}, SYSDATE)
+	</insert>
+	
+	<!-- 사용자 정보 -->
+	<select id="getUserInfo" parameterType="hashmap" resultType="com.example.test1.model.UserList">
+		SELECT *
+		FROM TBL_USER
+		WHERE userid = #{userid}
+	</select>
+</mapper>

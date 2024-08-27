@@ -28,6 +28,10 @@
 		.cdate {
 			width:200px;
 		}
+		a {
+			color:#000;
+			font-weight:bold;
+		}
 	</style>
 </head>
 <style>
@@ -49,8 +53,16 @@
 			</tr>
 			<tr v-for="item in list">
 				<td>{{item.boardno}}</td>
-				<td class="title">{{item.title}}</td>
-				<td>{{item.userid}}</td>
+				<td class="title">
+					<a href="javascript::" @click="fnView(item.boardno)">
+						{{item.title}}
+					</a>
+				</td>
+				<td>
+					<a href="javascript::" @click="fnUser(item.userid)">
+						{{item.username}}
+					</a>
+				</td>
 				<td>{{item.hit}}</td>
 				<td class="cdate">{{item.cdatetime}}</td>
 				<td>
@@ -100,7 +112,16 @@
 						}
 					}
 				});
-            }
+            },
+			fnView(key){
+				// key : boardNo, value : 게시글의 번호
+				$.pageChange("board-view.do", {boardNo : key});
+			},
+			fnUser(info){
+				// key : userid, value : 유저의 아이디
+				$.pageChange("user-info.do", {userid : info});
+			}
+			
         },
         mounted() {
             var self = this;

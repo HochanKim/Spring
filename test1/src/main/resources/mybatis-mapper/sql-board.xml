@@ -3,19 +3,30 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.test1.mapper.BoardMapper">
+	<!-- 게시글 리스트 출력 -->
 	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
-		SELECT boardno, title, userid, hit, cdatetime 
-		FROM TBL_BOARD
+		SELECT *
+		FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
 		WHERE title LIKE '%' || #{search} || '%'	<!-- 문자 이어붙이기 (오라클 DB) -->
 	</select>
 	
+	<!-- 게시글 삭제 -->
 	<delete id="delBoard" parameterType="hashmap">	
 		DELETE FROM TBL_BOARD
 		WHERE boardno = #{boardNo}
 	</delete>
 	
+	<!-- 게시글 작성 -->
 	<insert id="insertBoard" parameterType="hashmap">
 		INSERT INTO TBL_BOARD (boardNo, title, contents, userid, hit, cdatetime, udatetime)
 		VALUES (board_seq.nextval, #{title}, #{contents}, 'user1', 0, SYSDATE, SYSDATE)
 	</insert>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="getBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT *
+		FROM TBL_BOARD
+		WHERE boardNo = #{boardNo}
+	</select>
 </mapper>
