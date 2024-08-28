@@ -54,6 +54,54 @@ public class UserServiceImpl implements UserService {
 		return resultMap;
 	}
 	
+	// 유저 리스트
+	@Override
+	public HashMap<String, Object> getUserList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<UserList> list = userMapper.getUserList(map);		
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+			resultMap.put("message", "조회완료");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "예기치 못한 문제발생.");
+		}
+		return resultMap;
+	}
+	
+	// 유저 삭제
+	@Override
+	public HashMap<String, Object> getRemove(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			UserList remove = userMapper.getRemove(map);		
+			resultMap.put("remove", remove);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "예기치 못한 문제발생.");
+		}
+		return resultMap;
+	}
+	
+	// 게시글
+	@Override
+	public HashMap<String, Object> getBoardList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<BoardList> list = userMapper.getBoardList(map);		
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "예기치 못한 문제발생.");
+		}
+		return resultMap;
+	}
+
+
+	
 
 
 

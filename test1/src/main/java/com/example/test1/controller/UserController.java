@@ -42,6 +42,12 @@ public class UserController {
 		return "/login";
 	}
 	
+	// 유저 리스트
+	@RequestMapping("/user-list.do") 
+	public String list(Model model) throws Exception{
+		return "/user-list";
+	}
+	
 	
 	// ResponseBody
 	// 회원가입
@@ -71,5 +77,34 @@ public class UserController {
 		resultMap = userService.getUserInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+	
+	// 유저 리스트
+	@RequestMapping(value = "/user-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String userList(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'userList'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = userService.getUserList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 게시글 리스트
+	@RequestMapping(value = "/board-lists.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String BoardList(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'userList'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = userService.getBoardList(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 유저 삭제
+	@RequestMapping(value = "/user-remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String remove(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'remove'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = userService.getRemove(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+
 
 }

@@ -59,6 +59,7 @@
         data() {
             return {
 				map : {},
+				userId : "",
             };
         },
         methods: {
@@ -85,9 +86,11 @@
 					type : "POST", 
 					data : nparmap,
 					success : function(data) {
-						console.log(data); 
+						console.log(data);
 						if(data.info == undefined){
 							alert("사용 가능한 아이디");
+						} else if(self.retuern.userId.length <= 4) {
+							alert*("최소 5글자 아이디를 입력하세요")
 						} else {
 							alert("이미 사용중인 아이디");
 						}

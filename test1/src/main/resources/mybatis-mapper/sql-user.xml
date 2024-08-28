@@ -15,4 +15,23 @@
 		FROM TBL_USER
 		WHERE userid = #{userid}
 	</select>
+	
+	<!-- 유저 리스트 -->
+	<select id="getUserList" parameterType="hashmap" resultType="com.example.test1.model.UserList">
+		SELECT *
+		FROM TBL_USER
+		WHERE USERID LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 게시글 불러오기 -->
+	<select id="getBoardList" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT *
+		FROM TBL_BOARD
+	</select>
+	
+	<!-- 삭제하기 -->
+	<delete id="getRemove" parameterType="hashmap">
+		DELETE FROM TBL_USER
+		WHERE USERID = #{userid}
+	</delete>
 </mapper>

@@ -25,6 +25,7 @@
 			<p>전화번호 : {{info.phone}}</p>
 			<p>이메일 : {{info.email}}</p>
 			<p>성별 : {{info.gender}}</p>
+			<p>가입일 : {{info.cdatetime}}</p>
 		</div>
 	</div>
 </body>
