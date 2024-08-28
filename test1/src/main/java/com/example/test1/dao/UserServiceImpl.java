@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
 	public HashMap<String, Object> getRemove(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			UserList remove = userMapper.getRemove(map);		
-			resultMap.put("remove", remove);
+			userMapper.getRemove(map);
 			resultMap.put("result", "success");
+			resultMap.put("msg", "삭제되었습니다.");
 		} catch (Exception e) {
 			resultMap.put("result", "fail");
 			resultMap.put("message", "예기치 못한 문제발생.");

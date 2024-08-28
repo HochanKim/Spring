@@ -27,6 +27,7 @@
 			<p>성별 : {{info.gender}}</p>
 			<p>가입일 : {{info.cdatetime}}</p>
 		</div>
+		<button @click="fnUserExit()">회원탈퇴</button>
 	</div>
 </body>
 </html>
@@ -34,7 +35,7 @@
     const app = Vue.createApp({
         data() {
             return {
-				info : {},
+				info : {},	// map 형태 '{}''
 				userid : "${userid}"
             };
         },
@@ -52,8 +53,26 @@
 						self.info = data.info;
 					}
 				});
-	        }
-        },
+	        },
+			fnUserExit(){
+				var self = this;
+				var nparmap = {userid : self.userid};
+				if(!confirm("탈퇴하시겠습니까?")){
+					return;
+				};
+				$.ajax({
+					url:"user-remove.dox",
+					dataType:"json",	
+					type : "POST", 
+					data : nparmap,
+					success : function(data) {
+						alert("회원탈퇴 완료했습니다.");
+						$.pageChange("user-list.do", {});	
+					}
+				});
+        
+			}
+		},
         mounted() {
             var self = this;
 			self.fnInfo();

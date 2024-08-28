@@ -52,8 +52,16 @@
 				<th>삭제</th>
 			</tr>
 			<tr v-for="item in user">
-				<td>{{item.userid}}</td>
-				<td>{{item.username}}</td>
+				<td>
+					<a href="javascript::" @click="fnInfo(item.userid)">
+					{{item.userid}}
+					</a>
+				</td>
+				<td>
+					<a href="javascript::" @click="fnInfo(item.userid)">
+					{{item.username}}
+					</a>
+				</td>
 				<td>{{item.email}}</td>
 				<td>
 					<button @click="fnRemove(item.userid)">삭제</button>
@@ -71,7 +79,7 @@
 			<tr v-for="item in list">
 				<td>{{item.boardno}}</td>
 				<td>{{item.title}}</td>
-				<td>{{item.username}}</td>
+				<td>{{item.userid}}</td>
 				<td>{{item.hit}}</td>
 				<td>{{item.cdatetime}}</td>
 			</tr>
@@ -112,6 +120,7 @@
 					type : "POST", 
 					data : nparmap,
 					success : function(data) {
+						console.log(data);
 						self.list = data.list;
 					}
 				});
@@ -119,16 +128,22 @@
 			fnRemove(userId){
 				var self = this;
 				var nparmap = {userid : userId};
+				if(!confirm("삭제하시겠습니까?")){
+					return;
+				};
 				$.ajax({
 					url:"user-remove.dox",
 					dataType:"json",	
 					type : "POST", 
 					data : nparmap,
 					success : function(data) {
-						alert("삭제 완료");
-						self.fnUserList();
+						alert(data.msg);
+						self.fnUserList();	
 					}
 				});
+	        },
+			fnInfo(userId){
+				$.pageChange("user-info.do", {userid : userId});
 	        }
         },
         mounted() {
