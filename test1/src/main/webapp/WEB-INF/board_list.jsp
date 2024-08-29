@@ -32,12 +32,31 @@
 			color:#000;
 			font-weight:bold;
 		}
+		li {
+			display:inline-block;
+			width:100px;
+			text-align:center;
+		}
 	</style>
 </head>
 <style>
 </style>
 <body>
 	<div id="app">
+		<ul>
+			<li>
+				<a href="javascript::" @click="fnCategory('')">전체</a>
+			</li>
+			<li>
+				<a href="javascript::" @click="fnCategory('1')">공지사항</a>
+			</li>
+			<li>
+				<a href="javascript::" @click="fnCategory('2')">자유게시판</a>
+			</li>
+			<li>
+				<a href="javascript::" @click="fnCategory('3')">질문게시판</a>
+			</li>
+		</ul>
 		<div style="margin : 20px;">
 			<select style="margin-right : 5px;" v-model="searchOption">
 				<option value="all">:: 전체 ::</option>	
@@ -66,7 +85,7 @@
 					</a>
 				</td>
 				<td>
-					<a href="javascript::" @click="fnUser(item.userid)">
+					<a href="javascript::" @click="fnUser(item.userId)">
 						{{item.username}}
 					</a>
 				</td>
@@ -86,7 +105,8 @@
             return {
 				list : [],
 				search : "",
-				searchOption : "all"
+				searchOption : "all",
+				category : ''
             };
         },
         methods: {
@@ -94,8 +114,10 @@
 				var self = this;
 				var nparmap = {
 					search : self.search,
-					searchOption : self.searchOption
+					searchOption : self.searchOption,
+					category : self.category
 				};
+				console.log(nparmap);
 				$.ajax({
 					url:"board-list.dox",
 					dataType:"json",	
@@ -130,7 +152,12 @@
 			},
 			fnUser(info){
 				// key : userid, value : 유저의 아이디
-				$.pageChange("user-info.do", {userid : info});
+				$.pageChange("user-info.do", {userId : info});
+			},
+			fnCategory(number){
+				var self = this;
+				self.category = number;
+				self.fnGetList();	// 리스트 호출
 			}
 			
         },

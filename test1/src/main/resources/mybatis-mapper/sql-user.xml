@@ -9,18 +9,35 @@
 		VALUES (#{userId}, #{pwd}, #{name}, #{email}, #{phone}, #{gender}, SYSDATE)
 	</insert>
 	
+	<!-- 로그인 -->
+	<select id="userLogin" parameterType="hashmap" resultType="com.example.test1.model.UserList">
+		SELECT *
+		FROM TBL_USER
+		WHERE userId = #{userId} AND pwd = #{pwd}	<!-- #{view에서 설정한 파라미터 키값} or '${view에서 설정한 파라미터 키값}' -->
+	</select>
+	
 	<!-- 사용자 정보 -->
 	<select id="getUserInfo" parameterType="hashmap" resultType="com.example.test1.model.UserList">
 		SELECT *
 		FROM TBL_USER
-		WHERE userid = #{userid}
+		WHERE userId = #{userId}
 	</select>
 	
 	<!-- 유저 리스트 -->
 	<select id="getUserList" parameterType="hashmap" resultType="com.example.test1.model.UserList">
 		SELECT *
 		FROM TBL_USER
-		WHERE USERID LIKE '%' || #{keyword} || '%'
+		WHERE 
+		<if test="searchKind == 'all'">
+			USERID LIKE '%' || #{keyword} || '%'
+				OR EMAIL LIKE '%' || #{keyword} || '%' 
+		</if>
+		<if test="searchKind == 'userid'">
+			USERID LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="searchKind == 'useremail'">
+			EMAIL LIKE '%' || #{keyword} || '%' 
+		</if>
 	</select>
 	
 	<!-- 게시글 불러오기 -->
@@ -32,6 +49,6 @@
 	<!-- 삭제하기 -->
 	<delete id="getRemove" parameterType="hashmap">
 		DELETE FROM TBL_USER
-		WHERE USERID = #{userid}
+		WHERE USERID = #{userId}
 	</delete>
 </mapper>

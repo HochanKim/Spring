@@ -20,12 +20,11 @@
 <body>
 	<div id="app">
 		<div @click="fnInfo">
-			<p>아이디 : {{info.userid}}</p>
+			<p>아이디 : {{info.userId}}</p>
 			<p>이름 : {{info.username}}</p>
 			<p>전화번호 : {{info.phone}}</p>
 			<p>이메일 : {{info.email}}</p>
 			<p>성별 : {{info.gender}}</p>
-			<p>가입일 : {{info.cdatetime}}</p>
 		</div>
 		<button @click="fnUserExit()">회원탈퇴</button>
 	</div>
@@ -36,13 +35,13 @@
         data() {
             return {
 				info : {},	// map 형태 '{}''
-				userid : "${userid}"
+				userId : "${userId}"
             };
         },
         methods: {
 			fnInfo(){
 				var self = this;
-				var nparmap = {userid : self.userid};
+				var nparmap = {userId : self.userId};
 				$.ajax({
 					url:"user-info.dox",
 					dataType:"json",	
@@ -56,7 +55,7 @@
 	        },
 			fnUserExit(){
 				var self = this;
-				var nparmap = {userid : self.userid};
+				var nparmap = {userId : self.userId};
 				if(!confirm("탈퇴하시겠습니까?")){
 					return;
 				};

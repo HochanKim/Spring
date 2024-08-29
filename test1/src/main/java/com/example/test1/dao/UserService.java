@@ -9,6 +9,8 @@ public interface UserService {
 	
 	HashMap<String, Object> insertUser(HashMap<String, Object> map); 	// 회원가입
 	
+	HashMap<String, Object> userLogin(HashMap<String, Object> map); 	// 로그인
+	
 	HashMap<String, Object> getUserInfo(HashMap<String, Object> map);	// 사용자 정보
 	
 	HashMap<String, Object> getUserList(HashMap<String, Object> map);	// 유저 리스트, mapper를 호출

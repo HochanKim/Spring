@@ -20,4 +20,6 @@ public interface UserMapper {
 	List<BoardList> getBoardList(HashMap<String, Object> map);	// 여러개 리턴, 게시글 불러오기 
 	
 	void getRemove(HashMap<String, Object> map);		// 유저 삭제
+	
+	UserList userLogin(HashMap<String, Object> map);	// 로그인
 }

@@ -39,10 +39,15 @@
 	</style>
 <body>
 	<div id="app">
-		<button @click="fnBoardList">게시글목록(userController에서 작성)</button>
+		<button @click="fnBoardList" style="margin:10px;">게시글목록(userController에서 작성)</button>
 		<div>
+			<select style="margin : 0 10px;" v-model="searchKind">
+				<option value="all">:: 전체 ::</option>	
+				<option value="userid">아이디</option>	
+				<option value="useremail">이메일</option>	
+			</select>
 			<input placeholder="검색" v-model="keyword">
-			<button @click="fnUserList">검색</button>
+			<button @click="fnUserList" style="margin : 0 10px;">검색</button>
 		</div>
 		<table>
 			<tr>
@@ -93,13 +98,17 @@
             return {
 				user : [],
 				list : [],
-				keyword : ""
+				keyword : "",
+				searchKind : "all"
             };
         },
         methods: {
 			fnUserList(){
 				var self = this;
-				var nparmap = {keyword : self.keyword};
+				var nparmap = {
+					keyword : self.keyword,
+					searchKind : self.searchKind
+				};
 				$.ajax({
 					url:"user-list.dox",
 					dataType:"json",	
@@ -111,6 +120,7 @@
 					}
 				});
 	        },
+			
 			fnBoardList(){
 				var self = this;
 				var nparmap = {};
@@ -125,6 +135,7 @@
 					}
 				});
 	        },
+			
 			fnRemove(userId){
 				var self = this;
 				var nparmap = {userid : userId};
@@ -142,8 +153,9 @@
 					}
 				});
 	        },
+			
 			fnInfo(userId){
-				$.pageChange("user-info.do", {userid : userId});
+				$.pageChange("user-info.do", {});
 	        }
         },
         mounted() {

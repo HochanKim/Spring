@@ -7,7 +7,7 @@ public class BoardList {
 	private int boardno;
 	private String title;
 	private String contents;
-	private String userid;
+	private String userId;
 	private int hit;
 	private int category;
 	private int favorite;

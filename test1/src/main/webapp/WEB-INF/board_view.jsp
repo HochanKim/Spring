@@ -13,7 +13,7 @@
 	<div id="app">
 		<div @click="fnGetView">
 			<div>제목 : {{map.title}}</div>
-			<div>내용 : {{map.contents}}</div>
+			내용 : <div v-html="map.contents"></div>
 		</div>
 	</div>
 </body>

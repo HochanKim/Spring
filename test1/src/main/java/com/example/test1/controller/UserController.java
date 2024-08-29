@@ -32,7 +32,7 @@ public class UserController {
 	// 사용자 정보
 	@RequestMapping("/user-info.do") 
 	public String userInfo(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map) throws Exception {
-		request.setAttribute("userid", map.get("userid"));
+		request.setAttribute("userId", map.get("userId"));
 		return "/user_info";
 	}
 	
@@ -56,6 +56,15 @@ public class UserController {
 	public String insertUser(Model model, @RequestParam HashMap<String, Object> joinMap) throws Exception { // 메소드명 'insertUser'
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = userService.insertUser(joinMap);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 로그인
+	@RequestMapping(value = "/login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String login(Model model, @RequestParam HashMap<String, Object> joinMap) throws Exception { // 메소드명 'login'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = userService.userLogin(joinMap);
 		return new Gson().toJson(resultMap);
 	}
 	

@@ -35,6 +35,35 @@ public class UserServiceImpl implements UserService {
 		}
 		return resultMap;
 	}
+	
+	// 로그인 
+	@Override
+	public HashMap<String, Object> userLogin(HashMap<String, Object> loginMap) {
+		HashMap<String, Object> resultMap
+		= new HashMap<String, Object>();
+		try {
+			UserList login = userMapper.userLogin(loginMap);
+			if(login == null) {	// 'service'단에서 데이터를 가공 및 처리할 수 있다
+				resultMap.put("code", "100");
+				UserList idCheck = userMapper.getUserInfo(loginMap);
+				if(idCheck == null) {
+					resultMap.put("code", "200");
+				} else {
+					resultMap.put("code", "300");
+				}
+				
+			} else {
+				resultMap.put("code", "400");
+			}
+		} catch (Exception e) {
+			resultMap.put("code", "500");
+			resultMap.put("message", "예기치 못한 문제발생.");
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	
 
 	// 사용자 정보
 	@Override
@@ -99,9 +128,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return resultMap;
 	}
-
-
-	
 
 
 

@@ -8,9 +8,22 @@
 		SELECT *
 		FROM TBL_BOARD B
 		INNER JOIN TBL_USER U ON B.USERID = U.USERID
-		WHERE 
-			title LIKE '%' || #{search} || '%'			<!-- 문자 이어붙이기 (오라클 DB) -->
-			OR username LIKE '%' || #{search} || '%'
+		WHERE 1=1	<!-- where문에 'AND'연산이 바로 올 수 없기에 뒤에 'true'를 추가한다 -->
+		<choose>	<!-- choose문 -->
+			<when test="searchOption == 'title'">
+				AND title LIKE '%' || #{search} || '%'
+			</when>
+			<when test="searchOption == 'name'">
+				AND username LIKE '%' || #{search} || '%'
+			</when>
+			<otherwise>		<!-- if문의 else문과 비슷 -->
+				AND (title LIKE '%' || #{search} || '%'			 
+				OR username LIKE '%' || #{search} || '%')
+			</otherwise>
+		</choose>
+		<if test="category != '' and category != null">
+			AND category = #{category}
+		</if>
 	</select>
 	
 	<!-- 게시글 삭제 -->
