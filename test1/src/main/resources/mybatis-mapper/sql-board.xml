@@ -8,7 +8,9 @@
 		SELECT *
 		FROM TBL_BOARD B
 		INNER JOIN TBL_USER U ON B.USERID = U.USERID
-		WHERE title LIKE '%' || #{search} || '%'	<!-- 문자 이어붙이기 (오라클 DB) -->
+		WHERE 
+			title LIKE '%' || #{search} || '%'			<!-- 문자 이어붙이기 (오라클 DB) -->
+			OR username LIKE '%' || #{search} || '%'
 	</select>
 	
 	<!-- 게시글 삭제 -->

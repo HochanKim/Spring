@@ -38,10 +38,17 @@
 </style>
 <body>
 	<div id="app">
-		<label>
-			검색 : <input type="text" placeholder="검색어" v-model="search">
-		</label>
-		<button @click="fnGetList">검색</button>
+		<div style="margin : 20px;">
+			<select style="margin-right : 5px;" v-model="searchOption">
+				<option value="all">:: 전체 ::</option>	
+				<option value="title">제목</option>	
+				<option value="name">작성자</option>	
+			</select>
+			<label>
+				검색 : <input type="text" placeholder="검색어" v-model="search">
+			</label>
+			<button @click="fnGetList">검색</button>
+		</div>
 		<table>
 			<tr>
 				<th>번호</th>
@@ -78,13 +85,17 @@
         data() {
             return {
 				list : [],
-				search : ""
+				search : "",
+				searchOption : "all"
             };
         },
         methods: {
             fnGetList(){
 				var self = this;
-				var nparmap = {search : self.search};
+				var nparmap = {
+					search : self.search,
+					searchOption : self.searchOption
+				};
 				$.ajax({
 					url:"board-list.dox",
 					dataType:"json",	
