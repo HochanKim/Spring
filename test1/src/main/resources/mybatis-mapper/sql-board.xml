@@ -34,14 +34,15 @@
 	
 	<!-- 게시글 작성 -->
 	<insert id="insertBoard" parameterType="hashmap">
-		INSERT INTO TBL_BOARD (boardNo, title, contents, userid, hit, cdatetime, udatetime)
-		VALUES (board_seq.nextval, #{title}, #{contents}, 'user1', 0, SYSDATE, SYSDATE)
+		INSERT INTO TBL_BOARD (boardNo, title, contents, userId, hit, cdatetime, udatetime)
+		VALUES (board_seq.nextval, #{title}, #{contents}, #{userId}, 0, SYSDATE, SYSDATE)
 	</insert>
 	
 	<!-- 게시글 상세보기 -->
 	<select id="getBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
 		SELECT *
-		FROM TBL_BOARD
+		FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
 		WHERE boardNo = #{boardNo}
 	</select>
 </mapper>

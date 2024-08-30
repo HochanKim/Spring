@@ -12,7 +12,6 @@ public interface BoardService {
 	
 	HashMap<String, Object> insertBoard(HashMap<String, Object> map); // 게시글 업로드
 	
-	HashMap<String, Object> getBoard(HashMap<String, Object> map); // 게시글 상세보기
-	
+	HashMap<String, Object> getBoard(HashMap<String, Object> map); // 게시글 상세보기	
 
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.SchoolMapper">
+	<!-- 학생 리스트 -->
+	<select id="selectStuList" parameterType="hashmap" resultType="com.example.test1.model.School">
+		SELECT 
+		stuno, name
+		, SUBSTR(JUMIN,1,6) || '-' || SUBSTR(JUMIN,7,1) || '******' AS jumin
+		, grade
+		, SUBSTR(ID, 1, LENGTH(ID)-3) || '***' AS id, birthday, tel 
+		FROM STU
+	</select>
+	
+	<!-- 상세정보 -->
+	<select id="selectStuView" parameterType="hashmap" resultType="com.example.test1.model.School">
+		SELECT S.STUNO, S.NAME, D2.DNAME AS dName1, D1.DNAME AS dName2, P.NAME AS prof
+		FROM STU S
+		LEFT JOIN PROFESSOR P ON S.PROFNO = P.PROFNO	<!-- 왼쪽의 테이블(STU)을 기준으로 JOIN, 오른쪽 테이블(PROFESSOR)의 값이 없어도(NULL) 호출을 한다 -->
+		INNER JOIN DEPARTMENT D1 ON S.DEPTNO1 = D1.DEPTNO
+		INNER JOIN DEPARTMENT D2 ON D1.PART = D2.DEPTNO
+		WHERE STUNO = #{stuNo}
+	</select>
+	
+	<!-- 상세정보 -->
+	<select id="selectStuInfo" parameterType="hashmap" resultType="com.example.test1.model.School">
+		SELECT STUNO, NAME, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD') AS BIRTHDAY, GRADE, TEL
+		FROM STU
+		WHERE STUNO = #{stuNo}
+	</select>
+	
+	<!-- 퇴학 -->
+	<delete id="deleteStudent" parameterType="hashmap">
+		DELETE FROM STU
+		WHERE STUNO = #{stuNo}
+	</delete>
+	
+	<!-- 업데이트 -->
+	
+</mapper>

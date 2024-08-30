@@ -32,10 +32,13 @@
 			color:#000;
 			font-weight:bold;
 		}
-		li {
+		.category > li {
 			display:inline-block;
 			width:100px;
 			text-align:center;
+			margin:10px;
+			
+			border:1px solid black;
 		}
 	</style>
 </head>
@@ -43,7 +46,7 @@
 </style>
 <body>
 	<div id="app">
-		<ul>
+		<ul class="category">
 			<li>
 				<a href="javascript::" @click="fnCategory('')">전체</a>
 			</li>
@@ -91,11 +94,12 @@
 				</td>
 				<td>{{item.hit}}</td>
 				<td class="cdate">{{item.cdatetime}}</td>
-				<td>
+				<td v-if="sessionEmail == item.email || sessionStatus == 'A'">
 					<button @click="fnRemove(item.boardno)">삭제</button>
 				</td>
 			</tr>
 		</table>
+		<button @click="fnInsert">글쓰기</button>
 	</div>
 </body>
 </html>
@@ -106,7 +110,10 @@
 				list : [],
 				search : "",
 				searchOption : "all",
-				category : ''
+				category : '',
+				sessionId : "${sessionId}", 
+				sessionEmail : "${sessionEmail}", 
+				sessionStatus : "${sessionStatus}" 
             };
         },
         methods: {
@@ -139,10 +146,8 @@
 					data : nparmap,
 					success : function(data) { 
 						confirm(data.msg);
-						if(data.msg == true){
 							alert(data.message);
 							self.fnGetList();	// 게시글 삭제한 뒤에 재조회
-						}
 					}
 				});
             },
@@ -158,8 +163,11 @@
 				var self = this;
 				self.category = number;
 				self.fnGetList();	// 리스트 호출
+			},
+			fnInsert(){
+				var self = this;
+				$.pageChange("board-insert.do", {userId : self.sessionId});
 			}
-			
         },
         mounted() {
             var self = this;

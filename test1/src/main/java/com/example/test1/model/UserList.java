@@ -10,4 +10,19 @@ public class UserList {
 	private String email;
 	private String phone;
 	private String gender;
+	private String status;
+	
+	// 세션에서 저장한 set 메소드를 가져오는 get 메소드
+	public String getUserId() {
+		return userId;
+	}
+	public String getUserName() {
+		return username;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public String getEmail() {
+		return email;
+	}
 }

@@ -18,4 +18,5 @@ public interface UserService {
 	HashMap<String, Object> getBoardList(HashMap<String, Object> map);	// 게시글 리스트, mapper를 호출
 	
 	HashMap<String, Object> getRemove(HashMap<String, Object> map);		// 유저 삭제
+
 }

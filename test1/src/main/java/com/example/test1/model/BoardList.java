@@ -19,4 +19,27 @@ public class BoardList {
 	
 	// 조인
 	private String username;
+	private String status;
+	private String email;
+
+	// 세션 정보 가져오기
+	public String getUserId() {
+		// 아이디
+		return userId;
+	}
+
+	public String getUserName() {
+		// 이름
+		return username;
+	}
+	
+	public String getStatus() {
+		// 지위
+		return status;
+	}
+	
+	public String getEmail() {
+		// 이메일
+		return status;
+	}
 }

@@ -8,12 +8,18 @@
 	<title>게시글보기</title>
 </head>
 <style>
+	
 </style>
 <body>
 	<div id="app">
 		<div @click="fnGetView">
 			<div>제목 : {{map.title}}</div>
 			내용 : <div v-html="map.contents"></div>
+			<div>작성자 : {{map.username}}</div>
+			아이디 : <span>{{map.userId}}({{map.email}})</span>
+		</div>
+		<div v-if="sessionEmail == map.email || sessionStatus == 'A'">
+			<button @click="fnRemove" class="remove">삭제</button>
 		</div>
 	</div>
 </body>
@@ -23,7 +29,10 @@
         data() {
             return {
 				map : {},
-				boardNo : "${boardNo}"
+				boardNo : "${boardNo}",
+				sessionId : "${sessionId}",
+				sessionStatus : "${sessionStatus}",
+				sessionEmail : "${sessionEmail}",
             };
         },
         methods: {
@@ -40,7 +49,8 @@
 						self.map = data.info;	// 객체 'resultMap'에서 설정한 키값('info')
 					}
 				});
-            }
+            },
+			
         },
         mounted() {
 			var self = this;

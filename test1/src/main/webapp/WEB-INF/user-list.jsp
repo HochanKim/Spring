@@ -8,35 +8,35 @@
 	<title>user 리스트 출력</title>
 </head>
 <style>
-		table {
-			margin:30px;
-		}
-	    table,
-	    tr,
-	    td,
-	    th {
-	        border: 1px solid;
-	        text-align: center;
-	        border-collapse: collapse;
-	    }
+	table {
+		margin:30px;
+	}
+    table,
+    tr,
+    td,
+    th {
+        border: 1px solid;
+        text-align: center;
+        border-collapse: collapse;
+    }
 
-	    tr,
-	    td,
-	    th {
-			height:40px;
-	        padding: 5px 10px;
-	    }
-		.title {
-			width:300px;
-		}
-		.cdate {
-			width:200px;
-		}
-		a {
-			color:#000;
-			font-weight:bold;
-		}
-	</style>
+    tr,
+    td,
+    th {
+		height:40px;
+        padding: 5px 10px;
+    }
+	.title {
+		width:300px;
+	}
+	.cdate {
+		width:200px;
+	}
+	a {
+		color:#000;
+		font-weight:bold;
+	}
+</style>
 <body>
 	<div id="app">
 		<button @click="fnBoardList" style="margin:10px;">게시글목록(userController에서 작성)</button>

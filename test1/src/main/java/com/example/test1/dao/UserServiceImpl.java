@@ -3,6 +3,8 @@ package com.example.test1.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	HttpSession session;
 
 	// 회원가입
 	@Override
@@ -54,6 +59,10 @@ public class UserServiceImpl implements UserService {
 				
 			} else {
 				resultMap.put("code", "400");
+				session.setAttribute("sessionId", login.getUserId());
+				session.setAttribute("sessionName", login.getUserName());
+				session.setAttribute("sessionStatus", login.getStatus());
+				session.setAttribute("sessionEmail", login.getEmail());
 			}
 		} catch (Exception e) {
 			resultMap.put("code", "500");
