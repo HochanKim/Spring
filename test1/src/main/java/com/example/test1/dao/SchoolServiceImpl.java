@@ -79,9 +79,20 @@ public class SchoolServiceImpl implements SchoolService {
 
 	// 업데이트
 	@Override
-	public HashMap<String, Object> updateStudent(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<String, Object> updateStudent(HashMap<String, Object> upMap) {
+		HashMap<String, Object> resultMap
+		= new HashMap<String, Object>();
+		try {
+			School stuInfo = stuMapper.selectStuInfo(upMap);
+			resultMap.put("update", stuInfo);
+			resultMap.put("result", "success");
+			resultMap.put("message", "호출 성공");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "예기치 못한 문제발생.");
+		}
+		
+		return resultMap;
 	}
 
 	

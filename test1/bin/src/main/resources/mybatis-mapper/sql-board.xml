@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.BoardMapper">
+	<!-- 게시글 리스트 출력 -->
+	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT *
+		FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
+		WHERE 1=1	<!-- where문에 'AND'연산이 바로 올 수 없기에 뒤에 'true'를 추가한다 -->
+		<choose>	<!-- choose문 -->
+			<when test="searchOption == 'title'">
+				AND title LIKE '%' || #{search} || '%'
+			</when>
+			<when test="searchOption == 'name'">
+				AND username LIKE '%' || #{search} || '%'
+			</when>
+			<otherwise>		<!-- if문의 else문과 비슷 -->
+				AND (title LIKE '%' || #{search} || '%'			 
+				OR username LIKE '%' || #{search} || '%')
+			</otherwise>
+		</choose>
+		<if test="category != '' and category != null">
+			AND category = #{category}
+		</if>
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delBoard" parameterType="hashmap">	
+		DELETE FROM TBL_BOARD
+		WHERE boardno = #{boardNo}
+	</delete>
+	
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" parameterType="hashmap">
+		INSERT INTO TBL_BOARD (boardNo, title, contents, userId, hit, cdatetime, udatetime)
+		VALUES (board_seq.nextval, #{title}, #{contents}, #{userId}, 0, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="getBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT *
+		FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
+		WHERE boardNo = #{boardNo}
+	</select>
+</mapper>

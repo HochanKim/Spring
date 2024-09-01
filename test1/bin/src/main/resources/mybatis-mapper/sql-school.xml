@@ -37,14 +37,5 @@
 	</delete>
 	
 	<!-- 업데이트 -->
-	<update id="updateStudent" parameterType="hashmap">
-		UPDATE STU
-		SET
-			name = #{name},
-			birthday = #{birthday},
-			grade = #{grade},
-			tel = #{tel}
-		WHERE STUNO = #{stuNo}
-	</update>
 	
 </mapper>
