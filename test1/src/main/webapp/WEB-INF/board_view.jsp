@@ -18,6 +18,8 @@
 			<div>작성자 : {{map.username}}</div>
 			아이디 : <span>{{map.userId}}({{map.email}})</span>
 		</div>
+		<div>답글란</div>
+		<div>{{map.reply}}</div>
 		<div v-if="sessionEmail == map.email || sessionStatus == 'A'">
 			<button @click="fnRemove" class="remove">삭제</button>
 		</div>
@@ -29,6 +31,7 @@
         data() {
             return {
 				map : {},
+				reply : {},
 				boardNo : "${boardNo}",
 				sessionId : "${sessionId}",
 				sessionStatus : "${sessionStatus}",
@@ -45,8 +48,11 @@
 					type : "POST", 
 					data : nparmap,
 					success : function(data) { 
-						console.log(data);
+						console.log(data.info);
+						console.log(data.comment);
 						self.map = data.info;	// 객체 'resultMap'에서 설정한 키값('info')
+						self.reply = data.comment;
+						
 					}
 				});
             },

@@ -24,13 +24,15 @@ public class SchoolServiceImpl implements SchoolService {
 	// 전체 학생 DB 불러오기
 	@Override
 	public HashMap<String, Object> selectStuList(HashMap<String, Object> map) {
-		HashMap<String, Object> resultMap
-		= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<School> stuList = stuMapper.selectStuList(resultMap);
+			int count = stuMapper.countStuList(resultMap);
 			resultMap.put("list", stuList);
+			resultMap.put("count", count);
 			resultMap.put("result", "success");
 			resultMap.put("message", "호출 성공");
+			
 		} catch (Exception e) {
 			resultMap.put("result", "fail");
 			resultMap.put("message", "예기치 못한 문제발생.");

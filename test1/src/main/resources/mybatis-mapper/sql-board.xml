@@ -3,6 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.test1.mapper.BoardMapper">
+
 	<!-- 게시글 리스트 출력 -->
 	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
 		SELECT *
@@ -19,12 +20,41 @@
 			<otherwise>		<!-- if문의 else문과 비슷 -->
 				AND (title LIKE '%' || #{search} || '%'			 
 				OR username LIKE '%' || #{search} || '%')
+				<!--ORDER BY BOARDNO ASC-->
 			</otherwise>
 		</choose>
 		<if test="category != '' and category != null">
 			AND category = #{category}
-		</if>
+		</if>	
+		ORDER BY CDATETIME DESC
+		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY
 	</select>
+	
+	
+	<!-- 페이징 자동화 -->
+	<select id="pageNum" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS COUNT	<!-- 카운트값(정수)을 출력하므로 'resultType="int"' -->
+		FROM TBL_BOARD B
+		INNER JOIN TBL_USER U ON B.USERID = U.USERID
+		WHERE 1=1	<!-- where문에 'AND'연산이 바로 올 수 없기에 뒤에 'true'를 추가한다 -->
+		<choose>	<!-- choose문 -->
+			<when test="searchOption == 'title'">
+				AND title LIKE '%' || #{search} || '%'
+			</when>
+			<when test="searchOption == 'name'">
+				AND username LIKE '%' || #{search} || '%'
+			</when>
+			<otherwise>		<!-- if문의 else문과 비슷 -->
+				AND (title LIKE '%' || #{search} || '%'			 
+				OR username LIKE '%' || #{search} || '%')
+				<!--ORDER BY BOARDNO ASC-->
+			</otherwise>
+		</choose>
+		<if test="category != '' and category != null">
+			AND category = #{category}
+		</if>	
+	</select>
+	
 	
 	<!-- 게시글 삭제 -->
 	<delete id="delBoard" parameterType="hashmap">	
@@ -44,5 +74,13 @@
 		FROM TBL_BOARD B
 		INNER JOIN TBL_USER U ON B.USERID = U.USERID
 		WHERE boardNo = #{boardNo}
+	</select>
+	
+	<!-- 댓글 가져오기 -->
+	<select id="getComment" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
+		SELECT *
+		FROM TBL_COMMENT C
+		INNER JOIN TBL_USER U ON C.USERID = U.USERID
+		WHERE BOARDNO = #{boardNo}
 	</select>
 </mapper>

@@ -18,9 +18,13 @@ public class BoardList {
 	private String udatetime;
 	
 	// 조인
+	// 유저
 	private String username;
 	private String status;
 	private String email;
+	
+	// 댓글
+	private String commentNo;
 
 	// 세션 정보 가져오기
 	public String getUserId() {

@@ -11,7 +11,16 @@
 		, grade
 		, SUBSTR(ID, 1, LENGTH(ID)-3) || '***' AS id, birthday, tel 
 		FROM STU
+		ORDER BY grade DESC
+		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY
 	</select>
+	
+	<!-- 페이징 -->
+	<select id="countStuList" parameterType="hashmap" resultType="int">
+		SELECT COUNT (*) 
+		FROM STU
+	</select>
+	
 	
 	<!-- 상세정보 -->
 	<select id="selectStuView" parameterType="hashmap" resultType="com.example.test1.model.School">

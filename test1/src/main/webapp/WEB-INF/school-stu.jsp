@@ -36,10 +36,51 @@
 		color:#000;
 		font-weight:bold;
 	}
+
+	/* 페이징 CSS */
+	.pagination {
+		justify-content: center;
+		align-items: center;
+		margin: 20px;
+	}
+
+	.pagination button {
+		background-color: #f8f9fa;
+		border: 1px solid #dee2e6;
+		color: #007bff;
+		padding: 8px 12px;
+		margin: 0 2px;
+		cursor: pointer;
+		transition: background-color 0.3s, color 0.3s;
+		border-radius: 4px;
+	}
+
+	.pagination button:hover {
+		background-color: #007bff;
+		color: white;
+	}
+
+	.pagination button.active {
+		background-color: #007bff;
+		color: white;
+		cursor: default;
+	}
+
+	.pagination button:disabled {
+		background-color: #e9ecef;
+		color: #6c757d;
+		cursor: not-allowed;
+		border: 1px solid #dee2e6;
+	}
+
+	.pagination button:not(.active):not(:disabled):hover {
+		background-color: #0056b3;
+		color: white;
+	}
 </style>
 <body>
 	<div id="app">
-		<table @click="fnGetStu">
+		<table @click="fnGetStu(1)">
 			<tr>
 				<th>학번</th>			
 				<th>이름</th>			
@@ -67,6 +108,13 @@
 				</td>	
 			</tr>
 		</table>
+		<div class="pagination">
+		    <button v-if="currentPage > 1">이전</button>
+		    <button v-for="page in totalPages" :class="{active: page == currentPage}" @click="fnGetStu(page)">
+		        {{ page }}
+		    </button>
+		    <button v-if="currentPage < totalPages">다음</button>
+		</div>
 	</div>
 </body>
 </html>
@@ -75,12 +123,20 @@
         data() {
             return {
 			stuLists : [],
+			currentPage : 1,
+			pageSize : 10,
+			totalPages : ""
             };
         },
         methods: {
-			fnGetStu(){
+			fnGetStu(page){
 				var self = this;
-				var nparmap = {};
+				var startIndex = (page-1) * self.pageSize;
+				self.currentPage = page;
+				var nparmap = {
+					startIndex : startIndex,
+					pageSize : self.pageSize
+				};
 				$.ajax({
 					url:"school-stu.dox",
 					dataType:"json",
@@ -88,7 +144,8 @@
 					data : nparmap,
 					success : function(data) { 
 						console.log(data);
-						self.stuLists = data.list;	
+						self.stuLists = data.list;
+						self.totalPages = Math.ceil(data.count / self.pageSize);
 					}
 				});
             },
@@ -124,7 +181,7 @@
         },
         mounted() {
 			var self = this;
-			self.fnGetStu();
+			self.fnGetStu(self.currentPage);
         }
     });
     app.mount('#app');

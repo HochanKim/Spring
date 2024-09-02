@@ -7,6 +7,9 @@
 	<jsp:include page="/layout/menu.jsp"></jsp:include>
 	<title>게시판</title>
 	<style>
+		table {
+			margin-left:20px;
+		}
 	    table,
 	    tr,
 	    td,
@@ -40,6 +43,51 @@
 			
 			border:1px solid black;
 		}
+
+		button {
+			margin:0 20px;
+		}
+
+		/* 페이징 CSS */
+		.pagination {
+			justify-content: center;
+			align-items: center;
+			margin: 20px;
+		}
+
+		.pagination button {
+			background-color: #f8f9fa;
+			border: 1px solid #dee2e6;
+			color: #007bff;
+			padding: 8px 12px;
+			margin: 0 2px;
+			cursor: pointer;
+			transition: background-color 0.3s, color 0.3s;
+			border-radius: 4px;
+		}
+
+		.pagination button:hover {
+			background-color: #007bff;
+			color: white;
+		}
+
+		.pagination button.active {
+			background-color: #007bff;
+			color: white;
+			cursor: default;
+		}
+
+		.pagination button:disabled {
+			background-color: #e9ecef;
+			color: #6c757d;
+			cursor: not-allowed;
+			border: 1px solid #dee2e6;
+		}
+
+		.pagination button:not(.active):not(:disabled):hover {
+			background-color: #0056b3;
+			color: white;
+		}
 	</style>
 </head>
 <style>
@@ -69,7 +117,14 @@
 			<label>
 				검색 : <input type="text" placeholder="검색어" v-model="search">
 			</label>
-			<button @click="fnGetList">검색</button>
+			<button @click="fnGetList(1)">검색</button>
+		</div>
+		<div style="margin : 20px;">
+			<select v-model="selectSize" @change="fnGetList(1)">
+				<option value="5">5개씩</option>
+				<option value="10">10개씩</option>
+				<option value="20">20개씩</option>
+			</select>
 		</div>
 		<table>
 			<tr>
@@ -99,6 +154,13 @@
 				</td>
 			</tr>
 		</table>
+		<div class="pagination">
+		    <button v-if="currentPage > 1">이전</button>
+		    <button v-for="page in totalPages" :class="{active: page == currentPage}" @click="fnGetList(page)">
+		        {{ page }}
+		    </button>
+		    <button v-if="currentPage < totalPages">다음</button>
+		</div>
 		<button @click="fnInsert">글쓰기</button>
 	</div>
 </body>
@@ -113,18 +175,27 @@
 				category : '',
 				sessionId : "${sessionId}", 
 				sessionEmail : "${sessionEmail}", 
-				sessionStatus : "${sessionStatus}" 
+				sessionStatus : "${sessionStatus}",
+				currentPage: 1, 	// 현재 위치 페이지     
+				pageSize: 5,        // 한 페이지의 글 호출 개수
+				selectSize : 5,		// 한 페이지의 글 호출 개수 (option 값)
+				totalPages: ""   	// 총 페이징 버튼 수
             };
         },
         methods: {
-            fnGetList(){
+            fnGetList(page){
 				var self = this;
+				var startIndex = (page-1) * self.pageSize;
+				self.currentPage = page;	// 해당 페이지 버튼을 누를 시 'currentPage'의 값에 대입
+				self.pageSize = self.selectSize
 				var nparmap = {
 					search : self.search,
 					searchOption : self.searchOption,
-					category : self.category
+					category : self.category,
+					startIndex : startIndex,
+					pageSize : self.pageSize
 				};
-				console.log(nparmap);
+
 				$.ajax({
 					url:"board-list.dox",
 					dataType:"json",	
@@ -133,6 +204,7 @@
 					success : function(data) { 
 						console.log(data);
 						self.list = data.list;	// 컨트롤러에서 설정한 키값('list')
+						self.totalPages = Math.ceil(data.page / self.pageSize);		// 몫을 올림처리 (ex. 18/5 = 3.xxx => 4)
 					}
 				});
             },
@@ -167,11 +239,11 @@
 			fnInsert(){
 				var self = this;
 				$.pageChange("board-insert.do", {userId : self.sessionId});
-			}
+			},
         },
         mounted() {
             var self = this;
-			self.fnGetList();
+			self.fnGetList(self.currentPage);	// 파라미터를 받기 위한 변수 'self.currentPage'
         }
     });
     app.mount('#app');

@@ -16,4 +16,5 @@ public interface SchoolService {
 	HashMap<String, Object> updateStudent(HashMap<String, Object> map); // 학생 정보 업데이트
 	
 	HashMap<String, Object> selectStuInfo(HashMap<String, Object> map); // 학생 정보 (학번 클릭)
+	
 }
