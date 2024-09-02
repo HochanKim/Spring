@@ -60,6 +60,8 @@ public class SchoolController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	
+	
 	// 상세정보 출력 (school-stuView.do)
 	@RequestMapping(value = "/school-stuView.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

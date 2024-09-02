@@ -80,7 +80,14 @@
 </style>
 <body>
 	<div id="app">
-		<table @click="fnGetStu()">
+		<div style="margin : 30px;">
+			<select v-model="selectSize" @change="fnGetStu(1)">
+				<option value="5">5개씩</option>
+				<option value="10">10개씩</option>
+				<option value="20">20개씩</option>
+			</select>
+		</div>
+		<table>
 			<tr>
 				<th>학번</th>			
 				<th>이름</th>			
@@ -125,14 +132,18 @@
 			stuLists : [],
 			currentPage : 1,
 			pageSize : 10,
+			selectSize : 10,
 			totalPages : ""
             };
         },
         methods: {
-			fnGetStu(){
+			fnGetStu(page){
 				var self = this;
+				self.pageSize = self.selectSize;
+				self.currentPage = page;
 				var nparmap = {
-
+					startIndex : (page - 1) * self.pageSize,
+					pageSize : self.pageSize
 				};
 				$.ajax({
 					url:"school-stu.dox",
@@ -140,8 +151,8 @@
 					type : "POST", 
 					data : nparmap,
 					success : function(data) { 
-						console.log(data);
 						self.stuLists = data.list;
+						self.totalPages = Math.ceil(data.page / self.pageSize);
 					}
 				});
             },
@@ -170,14 +181,14 @@
 						console.log(data);
 						self.stuLists = data.del;	
 							alert("학생의 퇴학 처리가 완료됐습니다.");
-							self.fnGetStu();
+							self.fnGetStu(self.currentPage);
 					}
 				});
 			}
         },
         mounted() {
 			var self = this;
-			self.fnGetStu();
+			self.fnGetStu(self.currentPage);
         }
     });
     app.mount('#app');

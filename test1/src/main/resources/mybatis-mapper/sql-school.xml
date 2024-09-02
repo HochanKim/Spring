@@ -11,8 +11,8 @@
 		, grade
 		, SUBSTR(ID, 1, LENGTH(ID)-3) || '***' AS id, birthday, tel 
 		FROM STU
-<!--		ORDER BY grade DESC
-		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY-->
+		ORDER BY grade DESC
+		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY
 	</select>
 	
 	<!-- 페이징 -->
@@ -22,7 +22,7 @@
 	</select>
 	
 	
-	<!-- 상세정보 -->
+	<!-- 상세정보 1 -->
 	<select id="selectStuView" parameterType="hashmap" resultType="com.example.test1.model.School">
 		SELECT S.STUNO, S.NAME, D2.DNAME AS dName1, D1.DNAME AS dName2, P.NAME AS prof
 		FROM STU S
@@ -32,7 +32,7 @@
 		WHERE STUNO = #{stuNo}
 	</select>
 	
-	<!-- 상세정보 -->
+	<!-- 상세정보 2 -->
 	<select id="selectStuInfo" parameterType="hashmap" resultType="com.example.test1.model.School">
 		SELECT STUNO, NAME, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD') AS BIRTHDAY, GRADE, TEL
 		FROM STU

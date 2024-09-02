@@ -187,7 +187,7 @@
 				var self = this;
 				var startIndex = (page-1) * self.pageSize;
 				self.currentPage = page;	// 해당 페이지 버튼을 누를 시 'currentPage'의 값에 대입
-				self.pageSize = self.selectSize
+				self.pageSize = self.selectSize;
 				var nparmap = {
 					search : self.search,
 					searchOption : self.searchOption,
