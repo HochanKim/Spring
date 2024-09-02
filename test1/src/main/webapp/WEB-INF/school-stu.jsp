@@ -80,7 +80,7 @@
 </style>
 <body>
 	<div id="app">
-		<table @click="fnGetStu(1)">
+		<table @click="fnGetStu()">
 			<tr>
 				<th>학번</th>			
 				<th>이름</th>			
@@ -129,13 +129,10 @@
             };
         },
         methods: {
-			fnGetStu(page){
+			fnGetStu(){
 				var self = this;
-				var startIndex = (page-1) * self.pageSize;
-				self.currentPage = page;
 				var nparmap = {
-					startIndex : startIndex,
-					pageSize : self.pageSize
+
 				};
 				$.ajax({
 					url:"school-stu.dox",
@@ -145,7 +142,6 @@
 					success : function(data) { 
 						console.log(data);
 						self.stuLists = data.list;
-						self.totalPages = Math.ceil(data.count / self.pageSize);
 					}
 				});
             },
@@ -181,7 +177,7 @@
         },
         mounted() {
 			var self = this;
-			self.fnGetStu(self.currentPage);
+			self.fnGetStu();
         }
     });
     app.mount('#app');

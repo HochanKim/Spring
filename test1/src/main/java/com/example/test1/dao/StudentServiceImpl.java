@@ -55,8 +55,7 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public HashMap<String, Object> selectSubjectList() {
-		HashMap<String, Object> resultMap
-			= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<Student> subject = studentMapper.selectSubjectList();
 		List<Student> student = studentMapper.selectStudentList();
 		

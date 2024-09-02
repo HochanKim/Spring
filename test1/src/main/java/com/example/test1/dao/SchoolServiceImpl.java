@@ -27,9 +27,7 @@ public class SchoolServiceImpl implements SchoolService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			List<School> stuList = stuMapper.selectStuList(resultMap);
-			int count = stuMapper.countStuList(resultMap);
 			resultMap.put("list", stuList);
-			resultMap.put("count", count);
 			resultMap.put("result", "success");
 			resultMap.put("message", "호출 성공");
 			

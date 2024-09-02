@@ -21,4 +21,5 @@ public interface SchoolMapper {
 	School selectStuInfo(HashMap<String, Object> map); // 특정 학생 정보 (1개 정보 요청, 이름 클릭)
 	
 	int countStuList(HashMap<String, Object> map); // 페이지 리스트 개수
+	
 }

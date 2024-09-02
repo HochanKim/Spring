@@ -11,8 +11,8 @@
 		, grade
 		, SUBSTR(ID, 1, LENGTH(ID)-3) || '***' AS id, birthday, tel 
 		FROM STU
-		ORDER BY grade DESC
-		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY
+<!--		ORDER BY grade DESC
+		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY-->
 	</select>
 	
 	<!-- 페이징 -->
