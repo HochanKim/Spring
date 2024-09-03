@@ -44,7 +44,7 @@ public class BoardController {
 		request.setAttribute("boardNo", map.get("boardNo"));
 		return "/board_view";
 	}
-	
+
 
 	
 	// ResponseBody

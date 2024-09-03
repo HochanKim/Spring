@@ -184,7 +184,7 @@
 							self.fnGetStu(self.currentPage);
 					}
 				});
-			}
+			},
         },
         mounted() {
 			var self = this;

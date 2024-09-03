@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.ChartMapper">
+	<!-- 로그인 -->
+	<select id="selectChart" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT *
+		FROM TBL_PAYMENT
+	</select>
+	
+	<!-- 지역 (시/도) -->
+	<select id="selectSiArea" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT SI
+		FROM TBL_AREA
+		GROUP BY SI
+	</select>
+	
+	<!-- 지역 (시/군/구) -->
+	<select id="selectGuArea" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT GU
+		FROM TBL_AREA
+		WHERE SI = #{si}
+		GROUP BY SI, GU
+	</select>
+	
+	<!-- 지역 (동/읍/면/리) -->
+	<select id="selectDongArea" parameterType="hashmap" resultType="com.example.test1.model.Chart">
+		SELECT DONG
+		FROM TBL_AREA
+		<choose>
+			<when test="si == '세종특별자치시'">
+				WHERE SI = #{si}
+			</when>
+		</choose>
+		WHERE SI = #{si} or GU = #{gu}
+		GROUP BY SI, GU, DONG
+	</select>
+</mapper>

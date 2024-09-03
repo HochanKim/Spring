@@ -24,7 +24,7 @@ public class SchoolController {
 	
 	// 'school-stu.jsp' 테이블 출력 주소
 	@RequestMapping("/school-stu.do") 
-	public String list(Model model) throws Exception{
+	public String list(Model model) throws Exception {
 		return "/school-stu";
 	}
 	
