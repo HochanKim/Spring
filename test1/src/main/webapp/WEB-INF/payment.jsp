@@ -13,6 +13,7 @@
 <body>
 	<div id="app">
 		<button @click="fnPayment()">결제</button>
+		<!-- 포트원 : https://portone.io/korea/ko -->
 	</div>
 </body>
 </html>

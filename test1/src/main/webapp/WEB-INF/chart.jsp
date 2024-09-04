@@ -66,32 +66,32 @@ var app = new Vue({
 	methods : {
         fnGetChart(){
             var self = this;
-				var nparmap = {
+			var nparmap = {
 
-				};
-				$.ajax({
-					url:"chart.dox",
-					dataType:"json",
-					type : "POST", 
-					data : nparmap,
-					success : function(data) { 
-						console.log(data);
-                        // price ('series' 데이터 변경)
-                        var priceList = [];
-                        for(var i=0; i<data.chart.length; i++){
-                            priceList.push(data.chart[i].price);
-                        }
-
-                        // pdate
-                        var dataList = [];
-                        for(var m=0; m<data.chart.length; m++){
-                            dataList.push(data.chart[m].pdate);
-                        }
-
-                        self.fnChart(priceList, dataList);
-                        
+			};
+			$.ajax({
+				url:"chart.dox",
+				dataType:"json",
+				type : "POST", 
+				data : nparmap,
+				success : function(data) { 
+					console.log(data);
+					// price ('series' 데이터 변경)
+					var priceList = [];
+					for(var i=0; i<data.chart.length; i++){
+						priceList.push(data.chart[i].price);
 					}
-				});
+
+					// pdate
+					var dataList = [];
+					for(var m=0; m<data.chart.length; m++){
+						dataList.push(data.chart[m].pdate);
+					}
+
+					self.fnChart(priceList, dataList);
+					
+				}
+			});
         },
         fnChart(priceList, dataList){
 			var self = this;

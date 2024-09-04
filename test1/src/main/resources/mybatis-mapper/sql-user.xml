@@ -5,8 +5,8 @@
 <mapper namespace="com.example.test1.mapper.UserMapper">
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="hashmap">
-		INSERT INTO TBL_COMMENT (USERID, PWD, USERNAME, EMALE, PHONE, GENDER, CDATETIME)
-		VALUES (#{userId}, #{pwd}, #{name}, #{email}, #{phone}, #{gender}, SYSDATE)
+		INSERT INTO TBL_USER 
+		VALUES (#{userId}, #{pwd}, #{name}, #{email}, #{phone}, #{gender}, 'C', #{addr})
 	</insert>
 	
 	<!-- 로그인 -->
@@ -29,11 +29,11 @@
 		FROM TBL_USER
 		WHERE 
 		<if test="searchKind == 'all'">
-			USERID LIKE '%' || #{keyword} || '%'
+			userId LIKE '%' || #{keyword} || '%'
 				OR EMAIL LIKE '%' || #{keyword} || '%' 
 		</if>
-		<if test="searchKind == 'userid'">
-			USERID LIKE '%' || #{keyword} || '%'
+		<if test="searchKind == 'userId'">
+			userId LIKE '%' || #{keyword} || '%'
 		</if>
 		<if test="searchKind == 'useremail'">
 			EMAIL LIKE '%' || #{keyword} || '%' 
@@ -49,6 +49,6 @@
 	<!-- 삭제하기 -->
 	<delete id="getRemove" parameterType="hashmap">
 		DELETE FROM TBL_USER
-		WHERE USERID = #{userId}
+		WHERE userId = #{userId}
 	</delete>
 </mapper>

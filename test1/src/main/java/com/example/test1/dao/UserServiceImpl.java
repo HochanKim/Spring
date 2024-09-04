@@ -26,12 +26,10 @@ public class UserServiceImpl implements UserService {
 	// 회원가입
 	@Override
 	public HashMap<String, Object> insertUser(HashMap<String, Object> joinMap) {
-		HashMap<String, Object> resultMap
-		= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(joinMap);
 		try {
 			userMapper.insertUser(joinMap);
-			List<UserList> join = userMapper.insertUser(joinMap);
-			resultMap.put("join", join);
 			resultMap.put("message", "가입이 완료되었습니다.");
 			resultMap.put("result", "success");
 		} catch (Exception e) {

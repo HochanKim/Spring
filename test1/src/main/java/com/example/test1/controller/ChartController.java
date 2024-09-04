@@ -40,6 +40,12 @@ public class ChartController {
 	public String area(Model model) throws Exception {
 		return "/area";
 	}
+	
+	// 주소
+	@RequestMapping("/addr.do") 
+	public String address(Model model) throws Exception {
+		return "/jusoPopup";
+	}
 
 	// ResponseBody
 	// 차트

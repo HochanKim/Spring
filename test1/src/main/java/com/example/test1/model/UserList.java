@@ -11,6 +11,7 @@ public class UserList {
 	private String phone;
 	private String gender;
 	private String status;
+	private String addr;
 	
 	// 세션에서 저장한 set 메소드를 가져오는 get 메소드
 	public String getUserId() {
