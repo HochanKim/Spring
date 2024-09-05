@@ -219,7 +219,7 @@
 					success : function(data) { 
 						confirm(data.msg);
 							alert(data.message);
-							self.fnGetList();	// 게시글 삭제한 뒤에 재조회
+							self.fnGetList(self.currentPage);	// 게시글 삭제한 뒤에 재조회
 					}
 				});
             },

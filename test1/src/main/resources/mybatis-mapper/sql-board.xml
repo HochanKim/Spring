@@ -63,9 +63,16 @@
 	</delete>
 	
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="hashmap">
+	<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
 		INSERT INTO TBL_BOARD (boardNo, title, contents, userId, hit, cdatetime, udatetime)
 		VALUES (board_seq.nextval, #{title}, #{contents}, #{userId}, 0, SYSDATE, SYSDATE)
+	</insert>
+	
+	<!-- 파일 업로드 -->
+	<insert id="insertBoardFile" parameterType="hashmap">
+		INSERT INTO TBL_BOARDFILE
+		VALUES (boardfile_seq.nextval, #{idx}, #{fileName}, #{fileOrgName}, #{filePath}, #{fileSize}, #{fileExt}, 'N')
+		<!-- #{idx} = boarno -->
 	</insert>
 	
 	<!-- 게시글 상세보기 -->

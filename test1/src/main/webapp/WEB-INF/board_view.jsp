@@ -18,6 +18,9 @@
 			<div>작성자 : {{map.username}}</div>
 			아이디 : <span>{{map.userId}}({{map.email}})</span>
 		</div>
+		<br>
+		<hr>
+		<br>
 		<div>답글란</div>
 		<div>{{map.reply}}</div>
 		<div v-if="sessionEmail == map.email || sessionStatus == 'A'">
@@ -50,7 +53,7 @@
 					success : function(data) { 
 						console.log(data.info);
 						console.log(data.comment);
-						self.map = data.info;	// 객체 'resultMap'에서 설정한 키값('info')
+						self.map = data.info;			// 객체 'resultMap'에서 설정한 키값('info')
 						self.reply = data.comment;
 						
 					}

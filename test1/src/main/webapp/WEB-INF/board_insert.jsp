@@ -19,8 +19,8 @@
 		}
 	</style>
 	<!-- Quill CDN -->
-	    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-	    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </head>
 <style>
 </style>
@@ -34,9 +34,15 @@
 				</td>
 			</tr>
 			<tr>
+				<th>첨부파일</th>
+				<td>
+					<input type="file" @change="fnFileChange"/>
+				</td>
+			</tr>
+			<tr>
 				<th>내용</th>
 				<td>
-					<<div id="editor"></div>
+					<div id="editor"></div>
 				</td>
 			</tr>
 		</table>
@@ -51,29 +57,56 @@
 				list : [],
 				title : "",
 				contents : "",
-				sessionId : "${sessionId}"
+				sessionId : "${sessionId}",
+				file : null		// 업로드한 파일
             };
         },
         methods: {
-            // fnSave 생성 후 board-add.dox 호출해서 저장
-			fnSave(){
-				var self = this;
-				var nparmap = {
-					title : self.title, 
-					contents : self.contents, 
-					userId : self.sessionId
-				};
-				$.ajax({
-					url:"board-add.dox",
-					dataType:"json",	
-					type : "POST", 
-					data : nparmap,
-					success : function(data) { 
-						alert(data.message);
-						location.href = "board-list.do";
-					}
-				});
-	        }
+            // 파일 업로드 메소드
+			fnFileChange(event) {
+                this.file = event.target.files[0];
+            },
+            fnSave(){
+                var self = this;
+                var nparam = {
+                    title : self.title, 
+                    contents : self.contents,
+                    userId : self.sessionId
+                    
+                };
+                $.ajax({
+                    url:"board-add.dox",
+                    dataType:"json",	
+                    type : "POST", 
+                    data : nparam,
+                    success : function(data) { 
+                        var idx = data.idx;
+                        console.log(idx);
+						// 파일 등록
+                        if (self.file) {
+							const formData = new FormData();
+							formData.append('file1', self.file);
+							formData.append('idx', idx);
+
+							$.ajax({
+								url: '/fileUpload.dox',
+								type: 'POST',
+								data: formData,
+								processData: false,  
+								contentType: false,  
+								success: function() {
+									console.log('업로드 성공!');
+									alert(data.message);
+									location.href = "board-list.do";
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									console.error('업로드 실패!', textStatus, errorThrown);
+								}
+							});
+                        }
+                    }
+                });
+            }
         },
 		mounted() {
 			var self = this;

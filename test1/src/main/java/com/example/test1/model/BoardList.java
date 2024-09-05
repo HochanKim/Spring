@@ -23,6 +23,14 @@ public class BoardList {
 	private String status;
 	private String email;
 	
+	// 파일업로드
+	private String fileName;
+	private String fileOrgName;
+	private String filePath;
+	private String fileSize;
+	private String fileExt;
+	private String thumbnailYN;
+	
 	// 댓글
 	private String commentNo;
 

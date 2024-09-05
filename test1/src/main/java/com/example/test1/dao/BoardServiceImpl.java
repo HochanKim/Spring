@@ -56,6 +56,7 @@ public class BoardServiceImpl implements BoardService {
 		= new HashMap<String, Object>();
 		try {
 			boardMapper.insertBoard(map);
+			resultMap.put("idx", map.get("boardNo"));	// 키값 'idx'에 담은 'map'의 'boardNo'(게시글번호, pk값)
 			resultMap.put("msg", "게시글 업로드하시겠습니까?");
 			resultMap.put("message", "게시글이 저장되었습니다.");
 			resultMap.put("result", "success");
@@ -82,6 +83,13 @@ public class BoardServiceImpl implements BoardService {
 			resultMap.put("result", "fail");
 		}
 		return resultMap;
+	}
+
+	// 파일 업로드
+	@Override
+	public HashMap<String, Object> insertBoardFile(HashMap<String, Object> map) {
+		boardMapper.insertBoardFile(map);
+		return null;
 	}
 
 

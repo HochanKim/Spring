@@ -22,5 +22,8 @@ public interface BoardMapper {
 	
 	int pageNum(HashMap<String, Object> map); 			// 1개, 게시글 개수
 	
-	List<BoardList> getComment(HashMap<String, Object> map); 			// 여러개, 댓글
+	List<BoardList> getComment(HashMap<String, Object> map); // 여러개, 댓글
+	
+	void insertBoardFile(HashMap<String, Object> map); 	// 파일 업로드
+	
 }
