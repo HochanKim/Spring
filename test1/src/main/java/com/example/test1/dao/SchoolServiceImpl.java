@@ -64,8 +64,7 @@ public class SchoolServiceImpl implements SchoolService {
 	// 삭제 기능
 	@Override
 	public HashMap<String, Object> deleteStudent(HashMap<String, Object> delMap) {
-		HashMap<String, Object> resultMap
-		= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			School stuDel = stuMapper.deleteStudent(delMap);
 			resultMap.put("del", stuDel);
@@ -82,10 +81,9 @@ public class SchoolServiceImpl implements SchoolService {
 	// 업데이트
 	@Override
 	public HashMap<String, Object> updateStudent(HashMap<String, Object> upMap) {
-		HashMap<String, Object> resultMap
-		= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			School stuInfo = stuMapper.selectStuInfo(upMap);
+			School stuInfo = stuMapper.updateStudent(upMap);
 			resultMap.put("update", stuInfo);
 			resultMap.put("result", "success");
 			resultMap.put("message", "호출 성공");

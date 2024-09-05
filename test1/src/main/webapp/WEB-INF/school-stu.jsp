@@ -178,10 +178,9 @@
 					type : "POST", 
 					data : nparmap,
 					success : function(data) { 
-						console.log(data);
 						self.stuLists = data.del;	
-							alert("학생의 퇴학 처리가 완료됐습니다.");
-							self.fnGetStu(self.currentPage);
+						alert("학생의 퇴학 처리가 완료됐습니다.");
+						self.fnGetStu(self.currentPage);
 					}
 				});
 			},

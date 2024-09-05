@@ -15,10 +15,10 @@
 		<h1>학생 상세정보</h1>
 		<div @click="fnGetStuInfo">
 			<div>학번 : {{stuInfo.stuNo}}</div>
-			<div>이름 : <input type="text" name="name" v-model="stuInfo.name"></div>
-			<div>생년월일 : <input type="text" name="birthday" v-model="stuInfo.birthday"></div>
-			<div>학년 : <input type="text" name="grade" v-model="stuInfo.grade"></div>
-			<div>전화번호 : <input type="text" name="tel" v-model="stuInfo.tel"></div>
+			<div>이름 : <input type="text" name="name" :value="stuInfo.name"></div>
+			<div>생년월일 : <input type="text" name="birthday" :value="stuInfo.birthday"></div>
+			<div>학년 : <input type="text" name="grade" :value="stuInfo.grade"></div>
+			<div>전화번호 : <input type="text" name="tel" :value="stuInfo.tel"></div>
 		</div>
 		<button @click="infoUpdate(stuInfo.stuNo)">정보수정</button>
 	</div>
@@ -30,10 +30,10 @@
             return {
 				stuInfo : {},
 				stuNo : "${stuNo}",
-				name : "${name}",
-				birthday : "${birthday}",
-				grade : "${grade}",
-				tel : "${tel}"
+				name : "",
+				birthday : "",
+				grade : "",
+				tel : ""
 			
 			};
         },
