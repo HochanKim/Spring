@@ -65,4 +65,21 @@ public class StudentServiceImpl implements StudentService {
 		return resultMap;	// 리턴 타입이 'HashMap<String, Object>'
 	}
 
+	@Override
+	public HashMap<String, Object> groupEmpList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			List<Student> group = studentMapper.groupEmpList(map);
+			resultMap.put("dept", group);
+			resultMap.put("result", "success");
+			String msg = group != null ? "조회완료" : "학번을 다시 한 번 확인바람";
+			resultMap.put("message", msg);
+			
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", "db조회 오류");
+		}
+		return resultMap;
+	}
+
 }

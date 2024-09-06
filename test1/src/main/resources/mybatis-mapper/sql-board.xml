@@ -62,6 +62,17 @@
 		WHERE boardno = #{boardNo}
 	</delete>
 	
+	<!-- 선택 삭제 -->
+	<delete id="delCheckBoard" parameterType="hashmap">	
+		DELETE FROM TBL_BOARD
+		WHERE boardno IN 
+		(
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+		)
+	</delete>
+	
 	<!-- 게시글 작성 -->
 	<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
 		INSERT INTO TBL_BOARD (boardNo, title, contents, userId, hit, cdatetime, udatetime)

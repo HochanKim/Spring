@@ -88,6 +88,10 @@
 			background-color: #0056b3;
 			color: white;
 		}
+
+		.boardno, .item-title {
+			text-align: left;
+		}
 	</style>
 </head>
 <style>
@@ -106,6 +110,9 @@
 			</li>
 			<li>
 				<a href="javascript::" @click="fnCategory('3')">질문게시판</a>
+			</li>
+			<li>
+				<a href="login.do">로그인</a>
 			</li>
 		</ul>
 		<div style="margin : 20px;">
@@ -128,7 +135,8 @@
 		</div>
 		<table>
 			<tr>
-				<th>번호</th>
+				<th></th>
+				<th>게시글 번호</th>
 				<th class="title">제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
@@ -136,8 +144,12 @@
 				<th>삭제</th>
 			</tr>
 			<tr v-for="item in list">
-				<td>{{item.boardno}}</td>
-				<td class="title">
+				<td>
+					<input type="checkbox" v-model="selectItem" :value="item.boardno">
+					<!-- vue.js에서 'value'와 ':value'의 차이 -->
+				</td>
+				<td class="boardno">{{item.boardno}}</td>
+				<td class="title item-title">
 					<a href="javascript::" @click="fnView(item.boardno)">
 						{{item.title}}
 					</a>
@@ -154,6 +166,7 @@
 				</td>
 			</tr>
 		</table>
+		<button @click="fnCheckRemove">선택삭제</button>
 		<div class="pagination">
 		    <button v-if="currentPage > 1">이전</button>
 		    <button v-for="page in totalPages" :class="{active: page == currentPage}" @click="fnGetList(page)">
@@ -179,7 +192,8 @@
 				currentPage: 1, 	// 현재 위치 페이지     
 				pageSize: 5,        // 한 페이지의 글 호출 개수
 				selectSize : 5,		// 한 페이지의 글 호출 개수 (option 값)
-				totalPages: ""   	// 총 페이징 버튼 수
+				totalPages: "",  	// 총 페이징 버튼 수
+				selectItem : []
             };
         },
         methods: {
@@ -218,8 +232,8 @@
 					data : nparmap,
 					success : function(data) { 
 						confirm(data.msg);
-							alert(data.message);
-							self.fnGetList(self.currentPage);	// 게시글 삭제한 뒤에 재조회
+						alert(data.message);
+						self.fnGetList(self.currentPage);	// 게시글 삭제한 뒤에 재조회
 					}
 				});
             },
@@ -240,6 +254,23 @@
 				var self = this;
 				$.pageChange("board-insert.do", {userId : self.sessionId});
 			},
+			fnCheckRemove(){
+				var self = this;
+				var fList = JSON.stringify(self.selectItem);	// json형태의 문자열로 바꾸는 메소드
+				var nparmap = {
+					selectItem : fList
+				};
+				$.ajax({
+					url:"check-remove.dox",
+					dataType:"json",	
+					type : "POST", 
+					data : nparmap,
+					success : function(data) { 
+						confirm(data.message);
+						self.fnGetList(self.currentPage);	// 게시글 삭제한 뒤에 재조회
+					}
+				});
+			}
         },
         mounted() {
             var self = this;

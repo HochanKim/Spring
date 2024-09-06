@@ -17,4 +17,6 @@ public interface StudentService {
 	List<EmpList> selectEmpList();
 	
 	HashMap<String, Object> selectSubjectList();
+	
+	HashMap<String, Object> groupEmpList(HashMap<String, Object> map);
 }

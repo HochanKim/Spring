@@ -92,5 +92,20 @@ public class BoardServiceImpl implements BoardService {
 		return null;
 	}
 
+	// 선택글 삭제
+	@Override
+	public HashMap<String, Object> delCheckBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.delCheckBoard(map);	
+			resultMap.put("message", "게시글이 삭제되었습니다.");
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("message", "예기치 못한 문제발생.");
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
 
 }

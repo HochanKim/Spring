@@ -28,9 +28,20 @@
 		WHERE STU_NO = ${stuNo}
 	</select>
 	
+	<!-- EMP 테이블 1 -->
 	<select id="selectEmpList" parameterType="hashmap" resultType="com.example.test1.model.EmpList">
 		SELECT * 
 		FROM EMP
+	</select>
+	<!-- EMP 테이블 2 -->
+	<select id="groupEmpList" parameterType="hashmap" resultType="com.example.test1.model.EmpList">
+		SELECT * 
+		FROM EMP
+		WHERE DEPTNO IN (
+			<foreach collection="list" item="emp" separator=",">
+				#{emp}
+			</foreach>
+		)
 	</select>
 	
 	<select id="selectSubjectList" parameterType="hashmap" resultType="com.example.test1.model.Student">

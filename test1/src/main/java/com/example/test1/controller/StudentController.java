@@ -88,11 +88,19 @@ public class StudentController {
 		return new Gson().toJson(resultMap);
 	}
 	
+	@RequestMapping(value = "/empGroupList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") 
+	// 컨트롤러 주소명(value) : /empGroupList.dox
+	@ResponseBody
+	public String empGroup(Model model, @RequestParam HashMap<String, Object> empMap) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = studentService.groupEmpList(empMap);
+		return new Gson().toJson(resultMap);
+	}
+	
 	@RequestMapping(value = "/sub-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /subject.dox
 	@ResponseBody
 	public String subject(Model model, @RequestParam HashMap<String, Object> subjMap) throws Exception {		// 메소드명 'subject'
-		HashMap<String, Object> resultMap 
-		= new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = studentService.selectSubjectList();
 		
 		return new Gson().toJson(resultMap);

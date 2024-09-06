@@ -3,6 +3,7 @@ package com.example.test1.controller;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test1.dao.BoardService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -60,6 +63,20 @@ public class BoardController {
 	public String boardRemove(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'boardRemove'
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = boardService.delBoard(map);
+		return new Gson().toJson(resultMap);
+	}
+	
+	// 선택 삭제
+	@RequestMapping(value = "/check-remove.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String checkRemove(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'checkRemove'
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		// json 형태의 문자열로 쿼리에 전송
+		String json = map.get("selectItem").toString(); 
+		ObjectMapper mapper = new ObjectMapper();
+		List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+		map.put("list", list);
+		boardService.delCheckBoard(map);
 		return new Gson().toJson(resultMap);
 	}
 	

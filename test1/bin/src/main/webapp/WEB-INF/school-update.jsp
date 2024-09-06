@@ -15,10 +15,10 @@
 		<h1>학생 상세정보</h1>
 		<div @click="fnGetStuInfo">
 			<div>학번 : {{stuInfo.stuNo}}</div>
-			<div>이름 : <input type="text" value="{{stuInfo.name}}"></div>
-			<div>생년월일 : <input type="text" value="{{stuInfo.birthday}}"></div>
-			<div>학년 : <input type="text" value="{{stuInfo.grade}}"></div>
-			<div>전화번호 : <input type="text" value="{{stuInfo.tel}}"></div>
+			<div>이름 : <input type="text" :value="{{stuInfo.name}}" v-on:input="name"></div>
+			<div>생년월일 : <input type="text" :value="{{stuInfo.birthday}}" v-on:input="birthday"></div>
+			<div>학년 : <input type="text" :value="{{stuInfo.grade}}" v-on:input="grade"></div>
+			<div>전화번호 : <input type="text" :value="{{stuInfo.tel}}" v-on:input="tel"></div>
 		</div>
 		<button @click="infoUpdate()">정보수정</button>
 	</div>
@@ -29,7 +29,11 @@
         data() {
             return {
 			stuInfo : {},
-			stuNo : "${stuNo}"
+			stuNo : "${stuNo}",
+			name : "",
+			birthday : "",
+			grade : "",
+			tel : ""
            
 			};
         },
@@ -50,6 +54,22 @@
 					}
 				});
             },
+			name(event) {
+			  var updatedText = event.target.value;
+			  this.inputText = name;
+			},
+			birthday(event) {
+			  var updatedText = event.target.value;
+			  this.inputText = birthday;
+			},
+			grade(event) {
+			  var updatedText = event.target.value;
+			  this.inputText = grade;
+			},
+			tel(event) {
+			  var updatedText = event.target.value;
+			  this.inputText = tel;
+			},
         },
         mounted() {
 			var self = this;
