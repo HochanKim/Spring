@@ -39,12 +39,14 @@ public class StudentController {
 		return "/emp-list";
 	}
 	
-	@RequestMapping("/subject.do") // emp.do 주소 생성
+	@RequestMapping("/subject.do") // subject.do 주소 생성
 	public String main4(Model model) throws Exception{
 		// 'emp-list.jsp' 파일과 연결
 		return "/subject-list";
 	}
 	
+	
+	// @ResponseBody 구역
 	@RequestMapping(value = "/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String searchBbsList(Model model, @RequestParam HashMap<String, Object> map) throws Exception { // 메소드명 'searchBbsList'
