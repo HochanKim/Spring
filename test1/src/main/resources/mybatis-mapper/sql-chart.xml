@@ -33,7 +33,7 @@
 				WHERE SI = #{si}
 			</when>
 		</choose>
-		WHERE SI = #{si} or GU = #{gu}
+		WHERE SI = #{si} and GU = #{gu}
 		GROUP BY SI, GU, DONG
 	</select>
 </mapper>

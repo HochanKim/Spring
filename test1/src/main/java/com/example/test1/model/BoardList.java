@@ -16,6 +16,9 @@ public class BoardList {
 	private String noticeYN;
 	private String cdatetime;
 	private String udatetime;
+	private String fcdatetime;
+	private String commentCnt;
+	private String cnt;
 	
 	// 조인
 	// 유저

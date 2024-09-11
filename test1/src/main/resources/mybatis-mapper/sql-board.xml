@@ -6,9 +6,20 @@
 
 	<!-- 게시글 리스트 출력 -->
 	<select id="selectBoard" parameterType="hashmap" resultType="com.example.test1.model.BoardList">
-		SELECT *
+		SELECT B.*, U.*,
+			CASE 
+	        	WHEN TRUNC(B.CDATETIME) = TRUNC(SYSDATE) 
+	       	 	THEN TO_CHAR(B.CDATETIME, 'HH24:MI:SS') 
+	        	ELSE TO_CHAR(B.CDATETIME, 'YYYY-MM-DD') 
+	    	END AS F_CDATETIME,
+	    	NVL(C.CNT, 0) AS CNT
 		FROM TBL_BOARD B
 		INNER JOIN TBL_USER U ON B.USERID = U.USERID
+		LEFT JOIN (
+		    SELECT BOARDNO, COUNT(BOARDNO) AS CNT
+		    FROM TBL_COMMENT
+		    GROUP BY BOARDNO
+		) C ON B.BOARDNO = C.BOARDNO
 		WHERE 1=1	<!-- where문에 'AND'연산이 바로 올 수 없기에 뒤에 'true'를 추가한다 -->
 		<choose>	<!-- choose문 -->
 			<when test="searchOption == 'title'">
@@ -26,7 +37,7 @@
 		<if test="category != '' and category != null">
 			AND category = #{category}
 		</if>	
-		ORDER BY CDATETIME DESC
+		ORDER BY B.CDATETIME DESC
 		OFFSET #{startIndex} ROWS FETCH FIRST #{pageSize} ROWS ONLY
 	</select>
 	

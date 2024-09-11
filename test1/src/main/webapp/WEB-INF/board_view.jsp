@@ -13,7 +13,7 @@
 <body>
 	<div id="app">
 		<div @click="fnGetView">
-			<div>제목 : {{map.title}}</div>
+			<div>제목 : {{title}}</div>
 			내용 : <div v-html="map.contents"></div>
 			<div>작성자 : {{map.username}}</div>
 			아이디 : <span>{{map.userId}}({{map.email}})</span>
@@ -22,7 +22,7 @@
 		<hr>
 		<br>
 		<div>답글란</div>
-		<div>{{map.reply}}</div>
+		<div>{{reply}}</div>
 		<div v-if="sessionEmail == map.email || sessionStatus == 'A'">
 			<button @click="fnRemove" class="remove">삭제</button>
 		</div>

@@ -38,8 +38,8 @@
 		SELECT * 
 		FROM EMP
 		WHERE DEPTNO IN (
-			<foreach collection="list" item="emp" separator=",">
-				#{emp}
+			<foreach collection="list" item="item" separator=",">
+				#{item}
 			</foreach>
 		)
 	</select>

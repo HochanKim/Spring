@@ -7,6 +7,7 @@ import com.example.test1.model.BoardList;
 
 public interface BoardService {
 	
+	
 	HashMap<String, Object> selectBoard(HashMap<String, Object> map); // 게시판 불러오기
 	
 	HashMap<String, Object> delBoard(HashMap<String, Object> map); // 게시글 삭제

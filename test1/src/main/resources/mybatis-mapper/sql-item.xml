@@ -23,4 +23,37 @@
 		WHERE KIND = 'ITEM1'
 		ORDER BY CODE ASC
 	</select>
+	
+	<!-- 1번 쿼리 -->
+	<select id="selectSiList" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
+		SELECT SI
+		FROM AREA
+		GROUP BY SI
+		ORDER BY SI
+	</select>
+	
+	<!-- 2번 쿼리 -->
+	<select id="selectGuList" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
+		SELECT SI, GU
+		FROM AREA
+		WHERE SI = #{si} AND GU IS NOT NULL
+		GROUP BY SI, GU
+		ORDER BY GU
+	</select>
+	
+	<!-- 3번 쿼리 -->
+	<select id="selectDongList" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
+		SELECT SI, GU, DONG
+		FROM AREA
+		WHERE SI = #{si} AND GU = #{gu} AND DONG IS NOT NULL
+		GROUP BY SI, GU, DONG
+		ORDER BY DONG
+	</select>
+	
+	<!-- 날씨 쿼리 -->
+	<select id="selectApiList" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
+		SELECT NX, NY
+		FROM AREA
+		WHERE SI = #{si} AND GU = #{gu} AND DONG = #{dong}
+	</select>
 </mapper>

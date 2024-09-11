@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.test1.dao.StudentService;
 import com.example.test1.model.EmpList;
 import com.example.test1.model.Student;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Controller
@@ -81,6 +83,7 @@ public class StudentController {
 	
 	@RequestMapping(value = "/empList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /empList.dox
 	@ResponseBody
+	// emp 예시
 	public String emp(Model model, @RequestParam HashMap<String, Object> empMap) throws Exception {		// 메소드명 'emp'
 		HashMap<String, Object> resultMap 
 		= new HashMap<String, Object>();
@@ -95,9 +98,17 @@ public class StudentController {
 	@ResponseBody
 	public String empGroup(Model model, @RequestParam HashMap<String, Object> empMap) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		if(empMap.containsKey("searchGroup")) {
+			String json = empMap.get("searchGroup").toString();
+			ObjectMapper mapper = new ObjectMapper();
+			List<Object> list = mapper.readValue(json, new TypeReference<List<Object>>(){});
+			empMap.put("list", list);
+			System.out.println("보내기 : "+list);
+		}
 		resultMap = studentService.groupEmpList(empMap);
 		return new Gson().toJson(resultMap);
 	}
+	
 	
 	@RequestMapping(value = "/sub-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8") // 컨트롤러 주소명(value) : /subject.dox
 	@ResponseBody

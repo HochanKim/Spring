@@ -10,6 +10,7 @@ import com.example.test1.model.BoardList;
 @Mapper
 public interface BoardMapper {
 	
+	
 	List<BoardList> selectBoard(HashMap<String, Object> map);	// 여러개, xml에서 id를 'selectBoard'로 설정, 파라미터로 'Map'형태로 전달
 	
 	void delBoard(HashMap<String, Object> map); 		// 게시글 삭제
@@ -27,5 +28,6 @@ public interface BoardMapper {
 	void insertBoardFile(HashMap<String, Object> map); 	// 파일 업로드
 	
 	void delCheckBoard(HashMap<String, Object> map); // 선택글 삭제
+
 	
 }

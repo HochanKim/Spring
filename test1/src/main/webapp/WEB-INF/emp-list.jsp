@@ -93,7 +93,7 @@
 					dataType:"json",	
 					type : "POST", 
 					data : nparmap,
-					success : function(data) { 
+					success : function(data) {
 						console.log(data);
 						self.list = data.dept;	// 서비스단에서 설정한 키값('dept')
 					}

@@ -20,5 +20,5 @@ public interface StudentMapper {
 	
 	List<Student> selectSubjectList();	// 여러개, xml에서 id를 'selectSubjList'로 설정
 	
-	List<Student> groupEmpList(HashMap<String, Object> map);	// 여러개, xml에서 id를 'selectSubjList'로 설정
+	List<Student> groupEmpList(HashMap<String, Object> map);	// emp 예시
 }

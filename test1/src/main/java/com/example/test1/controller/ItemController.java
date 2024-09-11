@@ -34,6 +34,18 @@ public class ItemController {
 		return "/item-list";
 	}
 	
+	// api
+	@RequestMapping("/api1.do") 
+	public String api(Model model) throws Exception {
+		return "/api-connect";
+	}
+	
+	// 지역
+	@RequestMapping("/api-area.do") 
+	public String area(Model model) throws Exception {
+		return "/api-area";
+	}
+	
 
 	// ResponseBody
 	// 리스트 출력
@@ -58,6 +70,32 @@ public class ItemController {
 	public String itemGroupList(Model model, @RequestParam HashMap<String, Object> listMap) throws Exception { 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = itemService.selectCodeList(listMap);
+		return new Gson().toJson(resultMap);
+	}
+	
+	
+	// 시 리스트
+	@RequestMapping(value = "/si-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String areaList1(Model model, @RequestParam HashMap<String, Object> listMap) throws Exception { 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = itemService.selectSiList(listMap);
+		return new Gson().toJson(resultMap);
+	}
+	// 구 리스트
+	@RequestMapping(value = "/gu-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String areaList2(Model model, @RequestParam HashMap<String, Object> listMap) throws Exception { 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = itemService.selectGuList(listMap);
+		return new Gson().toJson(resultMap);
+	}
+	// 동 리스트
+	@RequestMapping(value = "/dong-list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String areaList3(Model model, @RequestParam HashMap<String, Object> listMap) throws Exception { 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = itemService.selectDongList(listMap);
 		return new Gson().toJson(resultMap);
 	}
 	

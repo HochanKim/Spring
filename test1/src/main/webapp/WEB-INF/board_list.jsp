@@ -29,7 +29,7 @@
 			width:300px;
 		}
 		.cdate {
-			width:200px;
+			width:140px;
 		}
 		a {
 			color:#000;
@@ -153,6 +153,9 @@
 					<a href="javascript::" @click="fnView(item.boardno)">
 						{{item.title}}
 					</a>
+					<template v-if="item.cnt != 0">
+						<span style="color:red;">[{{item.cnt}}]</span>
+					</template>
 				</td>
 				<td>
 					<a href="javascript::" @click="fnUser(item.userId)">
@@ -160,7 +163,7 @@
 					</a>
 				</td>
 				<td>{{item.hit}}</td>
-				<td class="cdate">{{item.cdatetime}}</td>
+				<td class="cdate">{{item.fcdatetime}}</td>
 				<td v-if="sessionEmail == item.email || sessionStatus == 'A'">
 					<button @click="fnRemove(item.boardno)">삭제</button>
 				</td>
@@ -193,7 +196,8 @@
 				pageSize: 5,        // 한 페이지의 글 호출 개수
 				selectSize : 5,		// 한 페이지의 글 호출 개수 (option 값)
 				totalPages: "",  	// 총 페이징 버튼 수
-				selectItem : []
+				selectItem : [],
+				commentCnt : ""
             };
         },
         methods: {
@@ -270,7 +274,7 @@
 						self.fnGetList(self.currentPage);	// 게시글 삭제한 뒤에 재조회
 					}
 				});
-			}
+			},
         },
         mounted() {
             var self = this;

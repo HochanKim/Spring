@@ -13,5 +13,10 @@ public interface ItemMapper {
 	
 	List<ItemList> selectItemList(HashMap<String, Object> map);
 	List<Code> selectCodeList(HashMap<String, Object> map);
+	
+	List<ItemList> selectSiList(HashMap<String, Object> map);
+	List<ItemList> selectGuList(HashMap<String, Object> map);
+	List<ItemList> selectDongList(HashMap<String, Object> map);
+	List<ItemList> selectApiList(HashMap<String, Object> map);
 
 }
