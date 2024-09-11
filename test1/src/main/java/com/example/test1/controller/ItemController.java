@@ -98,6 +98,14 @@ public class ItemController {
 		resultMap = itemService.selectDongList(listMap);
 		return new Gson().toJson(resultMap);
 	}
+	// 좌표 불러오기
+	@RequestMapping(value = "/get-point.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String areaList4(Model model, @RequestParam HashMap<String, Object> listMap) throws Exception { 
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = itemService.getPoint(listMap);
+		return new Gson().toJson(resultMap);
+	}
 	
 	
 }

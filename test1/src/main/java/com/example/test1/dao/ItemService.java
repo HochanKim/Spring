@@ -14,5 +14,6 @@ public interface ItemService {
 	HashMap<String, Object> selectSiList(HashMap<String, Object> map);
 	HashMap<String, Object> selectGuList(HashMap<String, Object> map);
 	HashMap<String, Object> selectDongList(HashMap<String, Object> map);
+	HashMap<String, Object> getPoint(HashMap<String, Object> map);
 	
 }

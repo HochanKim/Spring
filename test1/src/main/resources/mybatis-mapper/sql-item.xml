@@ -50,8 +50,8 @@
 		ORDER BY DONG
 	</select>
 	
-	<!-- 날씨 쿼리 -->
-	<select id="selectApiList" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
+	<!-- 좌표 쿼리 -->
+	<select id="getPoint" parameterType="hashmap" resultType="com.example.test1.model.ItemList">
 		SELECT NX, NY
 		FROM AREA
 		WHERE SI = #{si} AND GU = #{gu} AND DONG = #{dong}

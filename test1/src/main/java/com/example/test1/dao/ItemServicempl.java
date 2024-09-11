@@ -88,5 +88,13 @@ public class ItemServicempl implements ItemService {
 		return resultMap;
 	}
 
+	@Override
+	public HashMap<String, Object> getPoint(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ItemList point = itemMapper.getPoint(map);
+		resultMap.put("point", point);
+		return resultMap;
+	}
+
 
 }

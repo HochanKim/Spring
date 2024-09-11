@@ -23,7 +23,7 @@
 				<option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
 			</select>
 			<label>동/읍/면/리</label>
-			<select v-model="dong" @change="fnApi">
+			<select v-model="dong" @change="fnPoint">
 				<option value="">:: 전체 ::</option>
 				<option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
 			</select>
@@ -42,7 +42,9 @@
                 gu : "",
                 dongList : [],
                 dong : "",
-                apiPoint : []
+                apiPoint : [],
+				nx : "",
+				ny : ""
             };
         },
         methods: {
@@ -92,6 +94,25 @@
 					}
 				});
 			},
+			fnPoint(){
+				var self = this;
+				var nparmap = {
+                    si : self.si,
+                    gu : self.gu,
+					dong : self.dong
+				};
+				$.ajax({
+					url:"get-point.dox",
+					dataType:"json",
+					type : "POST", 
+					data : nparmap,
+					success : function(data) { 
+                        console.log(data);
+						self.nx = data.point.nx;
+						self.ny = data.point.ny;
+					}
+				});
+			},
             fnGetApi(){
                 /* Javascript 샘플 코드 */
 				var xhr = new XMLHttpRequest();
@@ -101,9 +122,9 @@
 				queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('1000'); /**/
 				queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /**/
 				queryParams += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent('20240911'); /**/
-				queryParams += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('1700'); /**/
-				queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('55'); /**/
-				queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('127'); /**/
+				queryParams += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('1800'); /**/
+				queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(this.nx); /**/
+				queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(this.ny); /**/
 				xhr.open('GET', url + queryParams);
 				xhr.onreadystatechange = function () {
 					if (this.readyState == 4) {
